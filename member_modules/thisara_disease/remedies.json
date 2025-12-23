@@ -1,0 +1,35 @@
+{
+  "Downy mildew": [
+    "Remove infected leaves immediately",
+    "Improve air circulation around plants",
+    "Avoid overhead watering",
+    "Apply appropriate fungicide if severe"
+  ],
+
+  "Mealy bugs": [
+    "Remove visible mealy bugs manually",
+    "Apply neem oil or insecticidal soap",
+    "Isolate infected plants to prevent spread",
+    "Maintain proper plant hygiene"
+  ],
+
+  "Mosaic Viruses": [
+    "Remove and destroy infected plants",
+    "Control insect vectors such as aphids",
+    "Disinfect tools before reuse",
+    "Avoid using infected planting material"
+  ],
+
+  "Translucent lesion": [
+    "Remove affected leaves",
+    "Avoid excess moisture on leaves",
+    "Improve drainage and sunlight exposure",
+    "Monitor plant regularly for spread"
+  ],
+
+  "Uncertain": [
+    "Image unclear or not matching trained diseases",
+    "Please capture a clear leaf image in good lighting",
+    "Ensure the leaf is fully visible and in focus"
+  ]
+}
