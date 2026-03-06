@@ -35,7 +35,7 @@ def load_all():
 # =========================
 # Image Preprocessing
 # =========================
-def preprocess_image(image: Image.Image, target_size=(224, 224)):
+def preprocess_image(image: Image.Image, target_size=(160, 160)):
     image = image.convert("RGB")
     image = image.resize(target_size)
     img_array = np.array(image).astype("float32") / 255.0
