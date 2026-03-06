@@ -7,7 +7,21 @@ from member_modules.thenuka_stage.stage_routes import router as thenuka_stage_ro
 
 app = FastAPI(title="AgarVision Backend", version="1.0.0")
 
-
+#cors
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:8081",
+        "http://127.0.0.1:8081",
+        "http://localhost:19006",
+        "http://127.0.0.1:19006",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Common routes
 app.include_router(health.router, tags=["Health"])
