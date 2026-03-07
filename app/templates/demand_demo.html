@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgarVision – Demand Prediction Demo</title>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --border:#e7e9ef;
+      --text:#111827;
+      --muted:#6b7280;
+
+      --green:#2f7d32;
+      --green2:#1f5b23;
+      --blue:#2563eb;
+      --danger:#b91c1c;
+
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 28px auto;
+      padding: 0 16px 40px;
+    }
+
+    .header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    h1{ margin:0; font-size: 24px; }
+    .sub{
+      margin:6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+      max-width: 720px;
+    }
+
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 13px;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+      white-space:nowrap;
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background:#9ca3af;
+    }
+    .dot.ok{ background: #22c55e; }
+    .dot.bad{ background: #ef4444; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns:1fr; }
+      .row{ justify-content:flex-start; }
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    label{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 10px 0 6px;
+    }
+
+    select, input{
+      width: 100%;
+      border:1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      outline:none;
+      background:#fff;
+      min-width: 0;
+    }
+
+    select:focus, input:focus{
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 3px rgba(147,197,253,0.35);
+    }
+
+    .btnRow{
+      display:flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      border:0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .btn.primary{ background: var(--green); color:#fff; }
+    .btn.primary:hover{ background: var(--green2); }
+
+    .btn.secondary{
+      background:#fff;
+      border:1px solid var(--border);
+      color: var(--text);
+    }
+    .btn.secondary:hover{ background:#f3f4f6; }
+
+    .btn.blue{ background: var(--blue); color:#fff; }
+    .btn.blue:hover{ filter: brightness(0.95); }
+
+    .btn.danger{ background: var(--danger); color:#fff; }
+    .btn.danger:hover{ filter: brightness(0.95); }
+
+    .resultBox{
+      border:1px solid var(--border);
+      border-radius: 14px;
+      background:#fafbff;
+      padding: 12px;
+    }
+
+    .kpiGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 420px){
+      .kpiGrid{ grid-template-columns:1fr; }
+    }
+
+    .kpi{
+      border:1px solid var(--border);
+      border-radius: 14px;
+      background:#fff;
+      padding: 12px;
+    }
+    .kpi .t{ font-size: 12px; color: var(--muted); }
+    .kpi .v{ font-size: 18px; font-weight: 800; margin-top: 6px; }
+
+    .why{
+      margin-top: 12px;
+      padding-left: 18px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .muted{ color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+    pre{
+      margin: 10px 0 0;
+      background: #0b1220;
+      color: #e5e7eb;
+      padding: 12px;
+      border-radius: 14px;
+      overflow:auto;
+      border:1px solid #111827;
+      font-size: 12px;
+      max-height: 240px;
+    }
+
+    .alert{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      color: #7f1d1d;
+      font-size: 13px;
+      display:none;
+      white-space: pre-wrap;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip{
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background:#fff;
+      cursor:pointer;
+    }
+    .chip:hover{ background:#f3f4f6; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1>AgarVision – Demand Prediction Demo</h1>
+        <p class="sub">
+          This UI calls your FastAPI endpoints:
+          <b>GET /oshini/health</b> and <b>POST /oshini/predict-demand</b>.
+          It shows demand index, demand level, recommended price range, and reasons.
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="badge">
+          <span class="dot" id="healthDot"></span>
+          <span id="healthText">Checking backend…</span>
+        </div>
+        <button class="btn secondary" id="btnRefreshHealth">Refresh Health</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: FORM -->
+      <div class="card">
+        <h2>Inputs</h2>
+
+        <label>Oil Type</label>
+        <select id="oil_type">
+          <option>Silani Ravana</option>
+          <option>Silani Savera</option>
+          <option>Silani Cobra</option>
+          <option>Silani Junglefowl</option>
+          <option>Silani Butterfly</option>
+          <option>Silani Peacock</option>
+        </select>
+
+        <label>Oil Grade</label>
+        <select id="oil_grade">
+          <option>Premium</option>
+          <option selected>Standard</option>
+          <option>Budget</option>
+        </select>
+
+        <label>Market Region</label>
+        <select id="market_region">
+          <option>Middle East</option>
+          <option>East Asia</option>
+          <option>Southeast Asia</option>
+          <option>Europe</option>
+          <option>South Asia</option>
+        </select>
+
+        <label>Market Country</label>
+        <select id="market_country"></select>
+
+        <label>Prediction Period</label>
+        <select id="prediction_period">
+          <option>Next Week</option>
+          <option selected>Next Month</option>
+          <option>Next Quarter</option>
+        </select>
+
+        <label>
+          <input type="checkbox" id="festival_season" />
+          Festival Season
+        </label>
+
+        <div class="btnRow">
+          <button class="btn primary" id="btnPredict">Predict Demand</button>
+          <button class="btn secondary" id="btnClear">Clear</button>
+        </div>
+
+        <div class="chips">
+          <button class="chip" data-preset="cobra_uae_month">Cobra • UAE • Next Month</button>
+          <button class="chip" data-preset="ravana_saudi_quarter">Ravana • Saudi • Next Quarter</button>
+          <button class="chip" data-preset="peacock_japan_week">Peacock • Japan • Next Week</button>
+        </div>
+
+        <div class="muted">
+          Tip: If you get “Invalid value for …”, it means the category is not in your LabelEncoder classes.
+        </div>
+
+        <div class="alert" id="alertBox"></div>
+      </div>
+
+      <!-- RIGHT: RESULTS -->
+      <div class="card">
+        <h2>Output</h2>
+
+        <div class="resultBox">
+          <div class="kpiGrid">
+            <div class="kpi">
+              <div class="t">Demand Index</div>
+              <div class="v" id="demandIndex">—</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Demand Level</div>
+              <div class="v" id="demandLevel">—</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Min Price (LKR)</div>
+              <div class="v" id="minPrice">—</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Max Price (LKR)</div>
+              <div class="v" id="maxPrice">—</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <div class="t muted" style="font-size:12px;">Why (Reasons)</div>
+            <ul class="why" id="whyList"></ul>
+          </div>
+        </div>
+
+        <div class="muted" style="margin-top:10px;">
+          Raw JSON (for debugging)
+        </div>
+        <pre id="rawJson">{}</pre>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const BASE = ""; // same backend (served via templates) => keep empty
+
+  const ENDPOINTS = {
+    health: BASE + "/oshini/health",
+    predict: BASE + "/oshini/predict-demand",
+  };
+
+  const countriesByRegion = {
+    "Middle East": ["UAE", "Saudi Arabia"],
+    "East Asia": ["China", "Taiwan", "Japan"],
+    "Southeast Asia": ["Singapore", "Malaysia"],
+    "Europe": ["Spain", "Slovakia"],
+    "South Asia": ["India"],
+  };
+
+  const el = (id) => document.getElementById(id);
+
+  function setCountriesForRegion(region){
+    const countrySelect = el("market_country");
+    countrySelect.innerHTML = "";
+    (countriesByRegion[region] || []).forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      countrySelect.appendChild(opt);
+    });
+  }
+
+  function showAlert(msg){
+    const box = el("alertBox");
+    if(!msg){
+      box.style.display = "none";
+      box.innerText = "";
+      return;
+    }
+    box.style.display = "block";
+    box.innerText = msg;
+  }
+
+  function setOutput(data){
+    el("demandIndex").innerText = data?.demand_index ?? "—";
+    el("demandLevel").innerText = data?.demand_level ?? "—";
+
+    const minP = data?.recommended_price_range?.min_price_lkr;
+    const maxP = data?.recommended_price_range?.max_price_lkr;
+
+    el("minPrice").innerText = (minP != null) ? Number(minP).toLocaleString() : "—";
+    el("maxPrice").innerText = (maxP != null) ? Number(maxP).toLocaleString() : "—";
+
+    const whyList = el("whyList");
+    whyList.innerHTML = "";
+    (data?.why || []).forEach(r => {
+      const li = document.createElement("li");
+      li.textContent = r;
+      whyList.appendChild(li);
+    });
+
+    el("rawJson").innerText = JSON.stringify(data || {}, null, 2);
+  }
+
+  async function fetchJSON(url, opts={}){
+    const res = await fetch(url, opts);
+    let data;
+    try { data = await res.json(); }
+    catch { data = {error: "Non-JSON response"}; }
+
+    if(!res.ok){
+      const err = data?.detail || data?.error || res.statusText;
+      throw new Error(err);
+    }
+    return data;
+  }
+
+  async function refreshHealth(){
+    const dot = el("healthDot");
+    const text = el("healthText");
+    dot.classList.remove("ok", "bad");
+    text.innerText = "Checking backend…";
+
+    try{
+      const data = await fetchJSON(ENDPOINTS.health);
+      const ok = data.status === "ok";
+      dot.classList.add(ok ? "ok" : "bad");
+      text.innerText = ok ? "Backend OK" : "Backend issue";
+    }catch(e){
+      dot.classList.add("bad");
+      text.innerText = "Backend unreachable";
+    }
+  }
+
+  function getPayload(){
+    return {
+      oil_type: el("oil_type").value,
+      oil_grade: el("oil_grade").value,
+      market_region: el("market_region").value,
+      market_country: el("market_country").value,
+      prediction_period: el("prediction_period").value,
+      festival_season: el("festival_season").checked
+    };
+  }
+
+  async function predict(){
+    showAlert("");
+    setOutput({}); // clear old output view
+
+    const payload = getPayload();
+
+    try{
+      const data = await fetchJSON(ENDPOINTS.predict, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+      setOutput(data);
+    }catch(e){
+      showAlert("Error: " + e.message);
+      el("rawJson").innerText = JSON.stringify({error: e.message, payload}, null, 2);
+    }
+  }
+
+  function clearAll(){
+    el("oil_type").value = "Silani Ravana";
+    el("oil_grade").value = "Standard";
+    el("market_region").value = "Middle East";
+    setCountriesForRegion("Middle East");
+    el("market_country").value = "UAE";
+    el("prediction_period").value = "Next Month";
+    el("festival_season").checked = false;
+    showAlert("");
+    setOutput({});
+  }
+
+  // Presets for easy demo
+  function applyPreset(key){
+    if(key === "cobra_uae_month"){
+      el("oil_type").value = "Silani Cobra";
+      el("oil_grade").value = "Standard";
+      el("market_region").value = "Middle East";
+      setCountriesForRegion("Middle East");
+      el("market_country").value = "UAE";
+      el("prediction_period").value = "Next Month";
+      el("festival_season").checked = false;
+    }
+
+    if(key === "ravana_saudi_quarter"){
+      el("oil_type").value = "Silani Ravana";
+      el("oil_grade").value = "Premium";
+      el("market_region").value = "Middle East";
+      setCountriesForRegion("Middle East");
+      el("market_country").value = "Saudi Arabia";
+      el("prediction_period").value = "Next Quarter";
+      el("festival_season").checked = true;
+    }
+
+    if(key === "peacock_japan_week"){
+      el("oil_type").value = "Silani Peacock";
+      el("oil_grade").value = "Standard";
+      el("market_region").value = "East Asia";
+      setCountriesForRegion("East Asia");
+      el("market_country").value = "Japan";
+      el("prediction_period").value = "Next Week";
+      el("festival_season").checked = false;
+    }
+  }
+
+  // Events
+  el("market_region").addEventListener("change", (e) => {
+    setCountriesForRegion(e.target.value);
+  });
+
+  el("btnPredict").addEventListener("click", predict);
+  el("btnClear").addEventListener("click", clearAll);
+  el("btnRefreshHealth").addEventListener("click", refreshHealth);
+
+  document.querySelectorAll(".chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      applyPreset(btn.getAttribute("data-preset"));
+    });
+  });
+
+  // init
+  setCountriesForRegion(el("market_region").value);
+  clearAll();
+  refreshHealth();
+</script>
+</body>
+</html>

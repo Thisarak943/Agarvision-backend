@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgarVision – Chatbot Demo</title>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --border:#e7e9ef;
+      --text:#111827;
+      --muted:#6b7280;
+      --green:#2f7d32;
+      --green2:#1f5b23;
+      --blue:#2563eb;
+      --danger:#b91c1c;
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 28px auto;
+      padding: 0 16px 40px;
+    }
+
+    .header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    h1{ margin:0; font-size: 24px; }
+    .sub{ margin:6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 13px;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+      white-space:nowrap;
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background:#9ca3af;
+    }
+
+    .dot.ok{ background: #22c55e; }
+    .dot.bad{ background: #ef4444; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 14px;
+      margin-top: 14px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px){
+      .grid{ grid-template-columns:1fr; }
+      .row{ justify-content:flex-start; }
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .chat{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .chatbox{
+      height: 360px;
+      overflow:auto;
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fafbff;
+    }
+
+    .msg{
+      max-width: 82%;
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin: 8px 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.35;
+      font-size: 14px;
+    }
+
+    .msg.user{
+      margin-left:auto;
+      background: #dbeafe;
+      border: 1px solid #bfdbfe;
+    }
+
+    .msg.bot{
+      margin-right:auto;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .inputRow{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+
+    input{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      outline:none;
+      background:#fff;
+      min-width: 0;
+    }
+
+    input:focus{
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 3px rgba(147,197,253,0.35);
+    }
+
+    .btn{
+      border:0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .btn.primary{ background: var(--green); color:#fff; }
+    .btn.primary:hover{ background: var(--green2); }
+
+    .btn.secondary{
+      background:#fff;
+      border:1px solid var(--border);
+      color: var(--text);
+    }
+    .btn.secondary:hover{ background:#f3f4f6; }
+
+    .btn.danger{ background: var(--danger); color:#fff; }
+    .btn.blue{ background: var(--blue); color:#fff; }
+
+    .small{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    pre{
+      margin: 0;
+      background: #0b1220;
+      color: #e5e7eb;
+      padding: 12px;
+      border-radius: 14px;
+      overflow:auto;
+      border:1px solid #111827;
+      font-size: 12px;
+    }
+
+    .hint{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip{
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background:#fff;
+      cursor:pointer;
+    }
+    .chip:hover{ background:#f3f4f6; }
+
+    .split{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .kvRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+
+    .kvRow > div{
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .label{
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .readonly{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      background:#fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1>AgarVision – Chatbot Demo</h1>
+        <p class="sub">
+          Demo UI for your FastAPI chatbot. Chat panel shows only the chatbot reply.
+          Debug info (intent/confidence/JSON) stays in the inspector.
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="badge" id="healthBadge">
+          <span class="dot" id="healthDot"></span>
+          <span id="healthText">Checking backend…</span>
+        </div>
+        <button class="btn secondary" id="btnRefreshHealth">Refresh Health</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: CHAT -->
+      <div class="card chat">
+        <h2>Chat</h2>
+
+        <div class="chatbox" id="chatbox"></div>
+
+        <div class="inputRow">
+          <input id="chatInput" placeholder="Type a message… (e.g., Predict demand for Cobra in UAE next month)" />
+          <button class="btn primary" id="btnSend">Send</button>
+        </div>
+
+        <div class="hint">
+          <button class="chip" data-msg="Hello">Hello</button>
+          <button class="chip" data-msg="What can you do?">What can you do?</button>
+          <button class="chip" data-msg="Predict demand for Silani Cobra in UAE next month">Predict demand example</button>
+          <button class="chip" data-msg="Recommend a price for Silani Ravana in Saudi Arabia next quarter">Price example</button>
+          <button class="chip" data-msg="Why this prediction?">Explain XAI</button>
+          <button class="chip" data-msg="Where can I export?">Market info</button>
+          <button class="chip" data-msg="Tell me about the 6 oil types">Oil info</button>
+        </div>
+
+        <div class="small">
+          Tip: If the chatbot asks for missing details, reply with oil type + country + period.
+        </div>
+      </div>
+
+      <!-- RIGHT: INSPECTOR -->
+      <div class="card split">
+        <h2>Response Inspector (Debug)</h2>
+
+        <div class="kv">
+          <div class="kvRow">
+            <div>
+              <div class="label">Last Intent</div>
+              <div class="readonly" id="lastIntent">—</div>
+            </div>
+            <div>
+              <div class="label">Confidence</div>
+              <div class="readonly" id="lastConf">—</div>
+            </div>
+          </div>
+
+          <div class="kvRow">
+            <div>
+              <div class="label">Status</div>
+              <div class="readonly" id="lastStatus">—</div>
+            </div>
+            <div>
+              <div class="label">Endpoint Used</div>
+              <div class="readonly" id="lastEndpoint">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Raw JSON</div>
+          <pre id="rawJson">{}</pre>
+        </div>
+
+        <div class="kvRow">
+          <button class="btn danger" id="btnReset">Reset Conversation</button>
+          <button class="btn blue" id="btnTestIntent">Test Intent Only</button>
+        </div>
+
+        <div class="small">
+          (Debug) “Test Intent Only” calls <b>/chatbot/test-intent-classification</b>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const BASE = "";
+  const ENDPOINTS = {
+    health: BASE + "/chatbot/health",
+    chat: BASE + "/chatbot/chat",
+    reset: BASE + "/chatbot/reset-conversation",
+    testIntent: BASE + "/chatbot/test-intent-classification",
+  };
+
+  const chatbox = document.getElementById("chatbox");
+
+  function addMessage(who, text) {
+    const div = document.createElement("div");
+    div.className = "msg " + who;
+    div.innerText = text;
+    chatbox.appendChild(div);
+    chatbox.scrollTop = chatbox.scrollHeight;
+  }
+
+  function setInspector({intent="—", confidence="—", status="—", endpoint="—", json={}}) {
+    document.getElementById("lastIntent").innerText = intent;
+    document.getElementById("lastConf").innerText = confidence;
+    document.getElementById("lastStatus").innerText = status;
+    document.getElementById("lastEndpoint").innerText = endpoint;
+    document.getElementById("rawJson").innerText = JSON.stringify(json, null, 2);
+  }
+
+  async function fetchJSON(url, opts={}) {
+    const res = await fetch(url, opts);
+    let data;
+    try { data = await res.json(); }
+    catch { data = {error: "Non-JSON response"}; }
+
+    if (!res.ok) {
+      const err = (data && (data.detail || data.error)) ? (data.detail || data.error) : res.statusText;
+      throw new Error(err);
+    }
+    return data;
+  }
+
+  async function refreshHealth() {
+    const dot = document.getElementById("healthDot");
+    const text = document.getElementById("healthText");
+    dot.classList.remove("ok", "bad");
+    text.innerText = "Checking backend…";
+
+    try {
+      const data = await fetchJSON(ENDPOINTS.health);
+      const ok = data.status === "ok" && data.model_loaded === true;
+      dot.classList.add(ok ? "ok" : "bad");
+      text.innerText = ok ? "Backend OK (model loaded)" : "Backend issue (check model paths)";
+      setInspector({status:"health", endpoint:"GET /chatbot/health", json:data});
+    } catch (e) {
+      dot.classList.add("bad");
+      text.innerText = "Backend unreachable";
+      setInspector({status:"error", endpoint:"GET /chatbot/health", json:{error:String(e)}});
+    }
+  }
+
+  async function sendChatMessage(message) {
+    addMessage("user", message);
+    setInspector({status:"loading", endpoint:"POST /chatbot/chat", json:{message}});
+
+    try {
+      const data = await fetchJSON(ENDPOINTS.chat, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ message })
+      });
+
+      // ✅ ONLY BOT REPLY IN CHAT (no meta)
+      addMessage("bot", data.response || "(no response field)");
+
+      // ✅ Debug info only in inspector
+      setInspector({
+        intent: data.intent || "—",
+        confidence: (data.confidence != null) ? Number(data.confidence).toFixed(3) : "—",
+        status: data.status || "success",
+        endpoint: "POST /chatbot/chat",
+        json: data
+      });
+
+    } catch (e) {
+      addMessage("bot", "Error: " + e.message);
+      setInspector({status:"error", endpoint:"POST /chatbot/chat", json:{error:e.message}});
+    }
+  }
+
+  async function resetConversation() {
+    setInspector({status:"loading", endpoint:"POST /chatbot/reset-conversation", json:{}});
+    try {
+      const data = await fetchJSON(ENDPOINTS.reset, { method:"POST" });
+
+      // ✅ Silent reset (do not add message to chat)
+      setInspector({status:"ok", endpoint:"POST /chatbot/reset-conversation", json:data});
+    } catch(e) {
+      addMessage("bot", "Reset error: " + e.message);
+      setInspector({status:"error", endpoint:"POST /chatbot/reset-conversation", json:{error:e.message}});
+    }
+  }
+
+  async function testIntentOnly(message) {
+    setInspector({status:"loading", endpoint:"POST /chatbot/test-intent-classification", json:{message}});
+    try {
+      const data = await fetchJSON(ENDPOINTS.testIntent, {
+        method:"POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ message })
+      });
+
+      // keep output in inspector only (clean demo)
+      setInspector({
+        intent: data.predicted_intent,
+        confidence: Number(data.confidence).toFixed(3),
+        status: "test",
+        endpoint: "POST /chatbot/test-intent-classification",
+        json: data
+      });
+
+    } catch(e) {
+      addMessage("bot", "Test error: " + e.message);
+      setInspector({status:"error", endpoint:"POST /chatbot/test-intent-classification", json:{error:e.message}});
+    }
+  }
+
+  // UI handlers
+  document.getElementById("btnSend").addEventListener("click", () => {
+    const input = document.getElementById("chatInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = "";
+    sendChatMessage(msg);
+  });
+
+  document.getElementById("chatInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") document.getElementById("btnSend").click();
+  });
+
+  document.getElementById("btnReset").addEventListener("click", resetConversation);
+  document.getElementById("btnRefreshHealth").addEventListener("click", refreshHealth);
+
+  document.getElementById("btnTestIntent").addEventListener("click", () => {
+    const input = document.getElementById("chatInput");
+    const msg = input.value.trim();
+    if (!msg) {
+      addMessage("bot", "Type a message first, then click Test Intent Only.");
+      return;
+    }
+    testIntentOnly(msg);
+  });
+
+  document.querySelectorAll(".chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const msg = btn.getAttribute("data-msg");
+      document.getElementById("chatInput").value = msg;
+      document.getElementById("chatInput").focus();
+    });
+  });
+
+  // Initial message + health check
+  addMessage("bot", "Hi! Ask me about demand prediction, price range recommendation, or market info.");
+  refreshHealth();
+</script>
+</body>
+</html>
