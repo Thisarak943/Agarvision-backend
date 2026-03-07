@@ -1,0 +1,220 @@
+{
+  "category": "agarwood_oud_oils",
+  "origin": "Sri Lanka",
+  "brand": "Silani",
+  "totalTypes": 6,
+  "overview": {
+    "description": "Silani Agarwood Oud Oils are distilled from Sri Lankan Aquilaria species using traditional and controlled extraction methods. Each oil type represents a distinct aromatic identity, market grade, and usage profile, ranging from ultra-premium collector oils to versatile commercial-grade oud.",
+    "exportFocus": true,
+    "commonUses": [
+      "Luxury perfumery",
+      "Personal fragrance",
+      "Traditional incense blending",
+      "Aromatherapy",
+      "Spiritual and cultural rituals",
+      "Private oud collections"
+    ]
+  },
+  "oilTypes": [
+    {
+      "id": "ravana",
+      "name": "Silani Ravana Oud Oil",
+      "grade": "Ultra Premium",
+      "rarity": "Very Rare",
+      "aromaProfile": {
+        "topNotes": ["Dark resin", "Ancient wood"],
+        "heartNotes": ["Smoky balsamic", "Leather"],
+        "baseNotes": ["Earthy musk", "Long-aged oud"],
+        "overallCharacter": "Deep, powerful, intense, and commanding"
+      },
+      "colorAndViscosity": {
+        "color": "Dark brown to black",
+        "viscosity": "Very thick and heavy"
+      },
+      "distillationStyle": "Extended traditional water distillation using highly infected aged wood",
+      "longevityAndProjection": {
+        "longevity": "Extremely long-lasting (12+ hours)",
+        "projection": "Strong but refined"
+      },
+      "primaryUses": [
+        "High-end perfumery",
+        "Collectors and connoisseurs",
+        "Ceremonial and spiritual use"
+      ],
+      "exportMarketPositioning": "Top-tier luxury export oil",
+      "targetAudience": [
+        "Oud collectors",
+        "Luxury perfume houses",
+        "High-net-worth buyers"
+      ],
+      "priceCategory": "Highest",
+      "description": "Silani Ravana Oud Oil represents the pinnacle of Sri Lankan oud. Known for its intense depth and ancient character, it is highly prized for its strength, longevity, and rarity."
+    },
+    {
+      "id": "savera",
+      "name": "Silani Savera Oud Oil",
+      "grade": "Premium",
+      "rarity": "Rare",
+      "aromaProfile": {
+        "topNotes": ["Sweet resin", "Warm spice"],
+        "heartNotes": ["Amber", "Soft smoke"],
+        "baseNotes": ["Woody musk", "Earthy sweetness"],
+        "overallCharacter": "Balanced, rich, elegant, and smooth"
+      },
+      "colorAndViscosity": {
+        "color": "Dark amber",
+        "viscosity": "Thick"
+      },
+      "distillationStyle": "Traditional water distillation with carefully aged agarwood",
+      "longevityAndProjection": {
+        "longevity": "Very long-lasting (10–12 hours)",
+        "projection": "Moderate to strong"
+      },
+      "primaryUses": [
+        "Fine perfumery",
+        "Daily luxury wear",
+        "Export blends"
+      ],
+      "exportMarketPositioning": "High-demand premium export oil",
+      "targetAudience": [
+        "Luxury fragrance users",
+        "Perfume brands",
+        "Oud enthusiasts"
+      ],
+      "priceCategory": "Very High",
+      "description": "Silani Savera Oud Oil offers a refined balance between sweetness and depth, making it highly versatile while still maintaining premium status."
+    },
+    {
+      "id": "cobra",
+      "name": "Silani Cobra Oud Oil",
+      "grade": "Upper-Mid Grade",
+      "rarity": "Limited",
+      "aromaProfile": {
+        "topNotes": ["Sharp wood", "Dry spice"],
+        "heartNotes": ["Smoky resin"],
+        "baseNotes": ["Dry earth", "Animalic tone"],
+        "overallCharacter": "Bold, sharp, and assertive"
+      },
+      "colorAndViscosity": {
+        "color": "Dark brown",
+        "viscosity": "Medium-thick"
+      },
+      "distillationStyle": "Controlled distillation using selected infected wood",
+      "longevityAndProjection": {
+        "longevity": "Long-lasting (8–10 hours)",
+        "projection": "Strong"
+      },
+      "primaryUses": [
+        "Masculine perfumery",
+        "Traditional oud lovers",
+        "Standalone fragrance oil"
+      ],
+      "exportMarketPositioning": "Strong character export oil",
+      "targetAudience": [
+        "Traditional oud users",
+        "Bold fragrance preference buyers"
+      ],
+      "priceCategory": "High",
+      "description": "Silani Cobra Oud Oil is known for its powerful and sharp aroma, appealing to users who prefer a strong and traditional oud presence."
+    },
+    {
+      "id": "peacock",
+      "name": "Silani Peacock Oud Oil",
+      "grade": "Mid Grade",
+      "rarity": "Moderate",
+      "aromaProfile": {
+        "topNotes": ["Floral sweetness"],
+        "heartNotes": ["Soft wood", "Light spice"],
+        "baseNotes": ["Gentle musk"],
+        "overallCharacter": "Elegant, smooth, and expressive"
+      },
+      "colorAndViscosity": {
+        "color": "Golden amber",
+        "viscosity": "Medium"
+      },
+      "distillationStyle": "Balanced distillation for aromatic clarity",
+      "longevityAndProjection": {
+        "longevity": "Moderate to long (6–8 hours)",
+        "projection": "Moderate"
+      },
+      "primaryUses": [
+        "Blended perfumes",
+        "Personal fragrance",
+        "Aromatic layering"
+      ],
+      "exportMarketPositioning": "Versatile commercial export oil",
+      "targetAudience": [
+        "Perfume manufacturers",
+        "Everyday oud users"
+      ],
+      "priceCategory": "Medium",
+      "description": "Silani Peacock Oud Oil is admired for its smooth, approachable profile, making it ideal for blends and wider market appeal."
+    },
+    {
+      "id": "butterfly",
+      "name": "Silani Butterfly Oud Oil",
+      "grade": "Mid to Entry Grade",
+      "rarity": "Common",
+      "aromaProfile": {
+        "topNotes": ["Light floral", "Fresh wood"],
+        "heartNotes": ["Soft resin"],
+        "baseNotes": ["Mild musk"],
+        "overallCharacter": "Light, airy, and pleasant"
+      },
+      "colorAndViscosity": {
+        "color": "Light amber",
+        "viscosity": "Light to medium"
+      },
+      "distillationStyle": "Short-cycle distillation",
+      "longevityAndProjection": {
+        "longevity": "Moderate (4–6 hours)",
+        "projection": "Soft"
+      },
+      "primaryUses": [
+        "Entry-level oud products",
+        "Blending",
+        "Aromatherapy"
+      ],
+      "exportMarketPositioning": "Volume-based export oil",
+      "targetAudience": [
+        "New oud users",
+        "Commercial fragrance producers"
+      ],
+      "priceCategory": "Affordable",
+      "description": "Silani Butterfly Oud Oil offers a gentle introduction to oud, with a light aroma suitable for blending and everyday use."
+    },
+    {
+      "id": "junglefowl",
+      "name": "Silani Junglefowl Oud Oil",
+      "grade": "Commercial",
+      "rarity": "Widely Available",
+      "aromaProfile": {
+        "topNotes": ["Green wood"],
+        "heartNotes": ["Earthy resin"],
+        "baseNotes": ["Dry wood"],
+        "overallCharacter": "Natural, raw, and earthy"
+      },
+      "colorAndViscosity": {
+        "color": "Brown",
+        "viscosity": "Medium"
+      },
+      "distillationStyle": "Efficient commercial distillation",
+      "longevityAndProjection": {
+        "longevity": "Moderate (5–7 hours)",
+        "projection": "Moderate"
+      },
+      "primaryUses": [
+        "Incense production",
+        "Commercial perfume bases",
+        "Bulk export"
+      ],
+      "exportMarketPositioning": "High-volume commercial export oil",
+      "targetAudience": [
+        "Manufacturers",
+        "Bulk buyers"
+      ],
+      "priceCategory": "Lowest",
+      "description": "Silani Junglefowl Oud Oil is a robust, natural oil designed for large-scale use, incense manufacturing, and cost-sensitive markets."
+    }
+  ]
+}
