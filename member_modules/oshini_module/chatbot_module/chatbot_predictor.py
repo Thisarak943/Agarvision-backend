@@ -12,10 +12,13 @@ from nltk.tokenize import word_tokenize
 
 import json
 from pathlib import Path
-from typing import Any, Dict
 
 # openai imports
 from openai import OpenAI
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class ChatbotPredictor:
@@ -238,13 +241,6 @@ class ChatbotPredictor:
         # Turn your JSON context into a compact string to send the model
         context_text = json.dumps(self._oil_info_context, ensure_ascii=False, indent=2)
 
-        # system_instructions = (
-        #     "You are an agarwood assistant.\n"
-        #     "Use ONLY the provided context JSON to answer.\n"
-        #     "If the context does not contain the answer, say what is missing and ask one follow-up question.\n"
-        #     "Be clear and structured. Prefer bullets for lists."
-        # )
-
         system_instructions = (
             "You are an agarwood assistant.\n"
             "Use ONLY the provided context JSON to answer.\n"
@@ -257,44 +253,57 @@ class ChatbotPredictor:
             "and ask ONE short follow-up question.\n"
         )
 
-        response = self._openai.responses.create(
-            model="o3-mini",  # choose the model you want
-            input=[
-                {
-                    "role": "system",
-                    "content": system_instructions
-                },
-                {
-                    "role": "user",
-                    "content": (
-                        "CONTEXT (JSON):\n"
-                        f"{context_text}\n\n"
-                        "USER QUESTION:\n"
-                        f"{message}"
-                    )
-                }
-            ],
-        )
+        try:
+            # FIXED: Use correct OpenAI API method
+            response = self._openai.chat.completions.create(
+                model="gpt-4o-mini",  # Use available model
+                messages=[
+                    {
+                        "role": "system",
+                        "content": system_instructions
+                    },
+                    {
+                        "role": "user",
+                        "content": (
+                            "CONTEXT (JSON):\n"
+                            f"{context_text}\n\n"
+                            "USER QUESTION:\n"
+                            f"{message}"
+                        )
+                    }
+                ],
+                temperature=0.7,
+                max_tokens=500
+            )
 
-        print("MODEL OUTPUT : ", response.output_text)
+            # Extract response text correctly
+            response_text = response.choices[0].message.content
+            print("MODEL OUTPUT:", response_text)
 
-        # return {
-        #     "intent": "oil_info",
-        #     "response": (
-        #         "Sri Lanka exports 6 main agarwood oil types:\n"
-        #         "• Silani Ravana (Premium grade)\n"
-        #         "• Silani Savera (Premium grade)\n"
-        #         "• Silani Cobra (Standard grade)\n"
-        #         "• Silani Junglefowl (Standard grade)\n"
-        #         "• Silani Butterfly (Standard grade)\n"
-        #         "• Silani Peacock (Standard grade)\n\n"
-        #         "Ravana and Savera are premium grades with higher market positioning."
-        #     )
-        # }
-        return {
-            "intent": "oil_info",
-            "response": response.output_text
-        }
+            return {
+                "intent": "oil_info",
+                "response": response_text
+            }
+        
+        except Exception as e:
+            print(f"OpenAI API Error: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            
+            # Fallback response if OpenAI fails
+            return {
+                "intent": "oil_info",
+                "response": (
+                    "Sri Lanka exports 6 agarwood oil types:\n"
+                    "• Ravana (Ultra Premium) - Deep, powerful, intense\n"
+                    "• Savera (Premium) - Balanced, rich, elegant\n"
+                    "• Cobra (Upper-Mid) - Bold, sharp, assertive\n"
+                    "• Peacock (Mid Grade) - Elegant, smooth, expressive\n"
+                    "• Butterfly (Entry) - Light, airy, pleasant\n"
+                    "• Junglefowl (Commercial) - Natural, raw, earthy\n\n"
+                    "Each has unique aromatic properties and market positioning."
+                )
+            }
     
     def _handle_market_info(self) -> Dict[str, Any]:
         return {
