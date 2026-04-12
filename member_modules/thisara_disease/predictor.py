@@ -7,14 +7,15 @@ from PIL import Image
 # -------------------------------------------------
 # Paths
 # -------------------------------------------------
-MODEL_PATH = "member_modules/thisara_disease/model/agarwood_leaf_disease_model.keras"
+MODEL_PATH = "member_modules/thisara_disease/model/agarleaves_5class_model.keras"
 REMEDIES_PATH = "member_modules/thisara_disease/remedies.json"
 
 # -------------------------------------------------
-# Class order (CONFIRMED from your notebook)
+# Class order (5-class model: 4 diseases + 1 healthy)
 # -------------------------------------------------
 CLASS_NAMES = [
     "Downy mildew",
+    "Healthy",
     "Mealy bugs",
     "Mosaic Viruses",
     "Translucent lesion"
@@ -102,12 +103,12 @@ def predict_pil_image(pil_image: Image.Image) -> dict:
     }
 
     # -------------------------------------------------
-    # OOD / NON-AGARWOOD REJECTION (DOES NOT HARM REAL CASES)
+    # OOD / NON-AGARWOOD REJECTION (5-CLASS MODEL)
     # -------------------------------------------------
-    # Conditions chosen based on your real outputs:
-    # - Agarwood diseases → confidence usually > 0.70
-    # - Jack / other leaves → confidence ~0.55–0.60 and mixed probs
-    if top1_prob < 0.65 or gap < 0.30:
+    # With 5 classes, probabilities are distributed differently.
+    # - Agarwood leaves (disease or healthy) → confidence usually > 0.50
+    # - Non-agarwood leaves → lower confidence and small gaps
+    if top1_prob < 0.50 or gap < 0.20:
         disease_out = "Not an Agarwood Leaf"
         remedies = [
             "The uploaded leaf does not belong to the agarwood domain",

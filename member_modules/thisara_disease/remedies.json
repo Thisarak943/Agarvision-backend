@@ -6,6 +6,13 @@
     "Apply appropriate fungicide if severe"
   ],
 
+  "Healthy": [
+    "Leaf is healthy with no visible signs of disease",
+    "Continue regular plant care and monitoring",
+    "Maintain good plant hygiene practices",
+    "Monitor periodically for any disease symptoms"
+  ],
+
   "Mealy bugs": [
     "Remove visible mealy bugs manually",
     "Apply neem oil or insecticidal soap",
