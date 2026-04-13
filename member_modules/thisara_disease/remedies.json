@@ -1,42 +1,66 @@
 {
   "Downy mildew": [
-    "Remove infected leaves immediately",
-    "Improve air circulation around plants",
-    "Avoid overhead watering",
-    "Apply appropriate fungicide if severe"
+    "🔴 IMMEDIATE ACTION\n• Remove all infected leaves immediately\n• Cut 2-3 inches above the visible infection area\n• Destroy leaves completely (do not compost)\n• Seal in a plastic bag before disposal",
+    "💨 IMPROVE AIR CIRCULATION\n• Prune lower leaves to increase airflow\n• Increase spacing between plants\n• Use ceiling or portable fans in enclosed spaces\n• Ensure 15-20 cm minimum distance between plant canopies",
+    "💧 WATER MANAGEMENT\n• Switch to drip irrigation system\n• Water soil directly - never wet the foliage\n• Water early in the morning\n• Allow water on leaves to dry within 2-3 hours maximum",
+    "🌡️ ENVIRONMENTAL CONTROL\n• Reduce humidity to 65-70% (use dehumidifier if needed)\n• Keep daytime temperature between 22-25°C\n• Avoid cool, wet conditions overnight\n• Ensure good ventilation at all times",
+    "💊 CHEMICAL TREATMENT\n• Apply copper-based fungicide (Bordeaux mixture 1%)\n• Or use sulfur spray (80% wettable powder)\n• Spray every 7-10 days for 3-4 weeks\n• Rotate between different fungicide types to prevent resistance\n• Always follow product instructions for safety",
+    "🛡️ PREVENTIVE MEASURES\n• Continue monitoring for new symptoms\n• Apply preventive fungicide every 2-3 weeks\n• Monitor for 4-6 weeks after initial treatment\n• Inspect both upper and lower leaf surfaces regularly",
+    "⚠️ POST-TREATMENT\n• Do not harvest leaves for 2 weeks after last treatment\n• Disinfect all pruning tools with 70% alcohol\n• Wash hands thoroughly after handling plants\n• Avoid spreading to other plants through tools or hands"
   ],
 
   "Healthy": [
-    "Leaf is healthy with no visible signs of disease",
-    "Continue regular plant care and monitoring",
-    "Maintain good plant hygiene practices",
-    "Monitor periodically for any disease symptoms"
+    "✅ GREAT NEWS!\n• Your agarwood leaf shows no disease symptoms\n• Disease identification: Negative\n• Overall leaf health status: Excellent\n• Continue with current care routine",
+    "💧 WATERING SCHEDULE\n• Maintain consistent soil moisture (60-70%)\n• Water when top 2-3 cm of soil feels dry\n• Use room temperature water\n• Avoid waterlogging - ensure proper drainage",
+    "☀️ LIGHTING CONDITIONS\n• Provide 6-8 hours of indirect sunlight daily\n• Avoid direct harsh afternoon sun\n• Rotate plant every 2-3 days for even growth\n• Use grow lights if natural light is insufficient",
+    "🌡️ TEMPERATURE & HUMIDITY\n• Maintain temperature between 20-28°C\n• Keep humidity at 70-80% (use humidifier if needed)\n• Avoid sudden temperature fluctuations\n• Protect from cold drafts and heating vents",
+    "🔍 REGULAR INSPECTION\n• Inspect leaves weekly for early disease signs\n• Check both upper and lower leaf surfaces\n• Look for spots, discoloration, or unusual marks\n• Act quickly if any symptoms appear",
+    "🧼 HYGIENE & SANITATION\n• Sanitize pruning tools with 70% alcohol before use\n• Wash hands after handling plants\n• Remove fallen leaves promptly\n• Keep work area clean and sanitized",
+    "🌱 NUTRITION SUPPORT\n• Apply balanced fertilizer (NPK 10-10-10) monthly\n• Or use organic compost every 2-3 months\n• This boosts plant immunity against diseases\n• Follow dosage instructions carefully"
   ],
 
   "Mealy bugs": [
-    "Remove visible mealy bugs manually",
-    "Apply neem oil or insecticidal soap",
-    "Isolate infected plants to prevent spread",
-    "Maintain proper plant hygiene"
+    "🔴 CRITICAL FIRST STEP\n• Isolate infected plant immediately\n• Move at least 2-3 meters away from other plants\n• Keep isolated for minimum 4-6 weeks\n• This prevents spread to your entire collection",
+    "✋ MANUAL REMOVAL METHOD\n• Use cotton swabs or soft brush\n• Dip in 70% isopropyl alcohol\n• Gently rub each visible mealy bug and white masses\n• Pay attention to leaf joints and stems - bugs hide there",
+    "🔄 REMOVAL SCHEDULE\n• Repeat manual removal every 3-4 days\n• Continue for 2-3 weeks\n• Check both sides of leaves thoroughly\n• Use magnifying glass to inspect hidden areas",
+    "💊 SPRAY TREATMENT\n• Apply neem oil solution (2% concentrate)\n• Or use insecticidal soap spray\n• Spray both upper and lower leaf surfaces thoroughly\n• Repeat every 5-7 days for at least 3 applications",
+    "🔀 ROTATION OF TREATMENTS\n• Alternate between different pesticide types\n• This prevents mealy bugs from building resistance\n• Try: Week 1-2 (neem oil) → Week 3-4 (soap spray) → Week 5-6 (another option)\n• Never use same product for more than 2 consecutive weeks",
+    "🔍 DETAILED INSPECTION\n• Check leaf axils (where leaves connect)\n• Inspect along stems and branches\n• Look inside leaf crevices\n• Use magnifying glass for tiny insects\n• Mark treated areas to track progress",
+    "🌡️ ENVIRONMENTAL CONDITIONS\n• Avoid high nitrogen fertilizer (promotes soft growth)\n• Maintain moderate humidity (65-75%)\n• Ensure good air circulation\n• Maintain temperature 20-25°C\n• These conditions reduce pest severity",
+    "📊 MONITORING PERIOD\n• Continue treatment for 4-6 weeks minimum\n• If reinfestation occurs, restart isolation\n• Keep detailed notes on treatment dates\n• Consider destroying if severe after 6 weeks of treatment"
   ],
 
   "Mosaic Viruses": [
-    "Remove and destroy infected plants",
-    "Control insect vectors such as aphids",
-    "Disinfect tools before reuse",
-    "Avoid using infected planting material"
+    "⚠️ CRITICAL WARNING - NO CURE AVAILABLE\n• Mosaic viruses CANNOT be treated or cured\n• Once established, virus remains in plant permanently\n• No antiviral chemicals are effective\n• Plant cannot recover - disease is permanent",
+    "🚫 IMMEDIATE ACTION REQUIRED\n• Remove and destroy the entire infected plant\n• Do NOT attempt to save it with treatment\n• Dispose in sealed bag to prevent spread\n• Do not compost - virus survives in soil",
+    "🧼 PREVENT TRANSMISSION\n• Clean all tools with 10% bleach solution\n• Or use 70% isopropyl alcohol\n• Wash hands thoroughly before touching other plants\n• Disinfect work surfaces and pots",
+    "🦟 VECTOR CONTROL (INSECT CONTROL)\n• Aphids spread mosaic viruses between plants\n• Control with insecticidal soap or neem oil\n• Spray every 5-7 days to eliminate vectors\n• Monitor surrounding plants closely\n• Reduce vector population by 90%+",
+    "🔍 SURROUNDING PLANT INSPECTION\n• Check all nearby plants weekly\n• Look for mottling (irregular coloring)\n• Watch for leaf distortion or curling\n• Note any color patches or striping\n• Any symptoms = immediate removal needed",
+    "⏸️ ISOLATION PROTOCOL\n• Keep surrounding plants isolated for 2-3 months\n• Maintain 1+ meter distance between plants\n• Do not move plants between areas\n• Remove any volunteer or weed seedlings\n• These can harbor hidden virus",
+    "📋 NEW PLANT QUARANTINE\n• Always quarantine new plant purchases\n• Keep separate for 4 weeks minimum\n• Inspect carefully before adding to collection\n• Use different tools for quarantined plants\n• Verify health before placement",
+    "💡 PREVENTION IS ONLY OPTION\n• Maintain strict plant hygiene always\n• Use disease-free planting material only\n• Never reuse soil from infected plants\n• Avoid overhead watering (reduces insect-mediated spread)\n• Sanitation is your best defense against viruses"
   ],
 
   "Translucent lesion": [
-    "Remove affected leaves",
-    "Avoid excess moisture on leaves",
-    "Improve drainage and sunlight exposure",
-    "Monitor plant regularly for spread"
+    "🔴 IMMEDIATE REMOVAL\n• Remove affected leaves immediately\n• Cut at the petiole (where leaf connects to stem)\n• Place in sealed plastic bag for disposal\n• Do NOT leave on ground or near plant\n• Work carefully to avoid spore spread",
+    "💧 WATERING ADJUSTMENT\n• Reduce watering frequency immediately\n• Water only when soil is 60-70% dry\n• Switch to drip irrigation if possible\n• AVOID wetting the foliage completely\n• Apply water only at soil level",
+    "💨 HUMIDITY MANAGEMENT\n• Decrease humidity to 65-70% (use fan)\n• Eliminate standing water around plant\n• Ensure air movement around all leaves\n• Do NOT use misting or foliar spray\n• Good air circulation prevents disease spread",
+    "☀️ INCREASE LIGHT EXPOSURE\n• Increase to 6-8 hours of indirect sunlight daily\n• Good light helps plant recover faster\n• Improves leaf photosynthesis activity\n• Boosts plant immune system significantly\n• Prevents disease from progressing further",
+    "🌱 VERIFY SOIL DRAINAGE\n• Check that soil mixture drains well\n• Ideal mix: 40% perlite + 40% potting soil + 20% sand\n• Test by watering - water should drain in 2-3 minutes\n• Soggy soil causes rapid lesion spread\n• Repot if drainage is poor",
+    "💊 FUNGICIDE APPLICATION\n• Apply copper fungicide weekly\n• Or use sulfur-based fungicide\n• Spray for 3-4 consecutive weeks\n• Use preventive dose, not high concentration\n• Always follow product instructions",
+    "🔍 ROOT INSPECTION\n• Gently remove plant from pot\n• Inspect entire root system carefully\n• Healthy roots: White or light brown, firm\n• Diseased roots: Dark brown, mushy, foul smell\n• If rotting: Repot immediately in fresh sterile soil",
+    "📊 RECOVERY TIMELINE\n• Expect 2-4 weeks for new healthy leaves\n• Lesions should stop spreading within 1 week\n• Monitor daily for new symptoms\n• If lesions continue spreading despite treatment = possible bacterial co-infection",
+    "⚠️ ADVANCED MANAGEMENT\n• If lesions spread rapidly = apply bactericide too\n• Reduce fertilizer - plant needs recovery time\n• Keep separate from other plants for 6 weeks\n• Continue inspection for full 6 weeks\n• Note: Some leaf damage is permanent but plant can recover"
   ],
 
   "Uncertain": [
-    "Image unclear or not matching trained diseases",
-    "Please capture a clear leaf image in good lighting",
-    "Ensure the leaf is fully visible and in focus"
+    "❌ IMAGE NOT RECOGNIZED\n• The uploaded image is unclear\n• Or does not match training data patterns\n• Please capture a new photo and try again\n• Follow guidelines below for better results",
+    "📸 PHOTOGRAPHY GUIDELINES\n• Use natural lighting (NOT flash photography)\n• Ensure leaf is in sharp focus\n• Photograph from directly above the leaf\n• Avoid shadows on the leaf surface\n• Clean camera lens before taking photo",
+    "🍃 LEAF SELECTION\n• Choose a single affected leaf if possible\n• Select the most clearly diseased part\n• Show both healthy and diseased areas for comparison\n• Avoid blurred or corrupted backgrounds\n• Do NOT include multiple leaves in one image",
+    "🧹 PREPARE THE LEAF\n• Gently clean the leaf with soft cloth\n• Remove any dust or debris\n• Ensure the entire leaf surface is visible\n• Include stem/petiole in photo\n• Make leaf prominent in the frame (70%+ of image)",
+    "🖼️ IMAGE COMPOSITION\n• Use plain, contrasting background (white works best)\n• Place leaf against background for clarity\n• Ensure no shadows across the leaf\n• Position for maximum detail visibility\n• Leave 10-20% margin around leaf edges",
+    "📐 IMAGE SPECIFICATIONS\n• Minimum size: 224×224 pixels\n• Recommended: 500×500 pixels or larger\n• Preferred format: JPG or PNG\n• File size: Less than 5 MB\n• Try different formats if JPG doesn't work",
+    "🔄 ANGLE VARIATION\n• If first image unclear, try different angles\n• Top view (leaf directly from above)\n• Bottom view (showing underside details)\n• Side angle (showing leaf profile)\n• Different angles may reveal details better",
+    "✅ VERIFICATION\n• Confirm it's an Agarwood (agar) leaf\n• This model is specifically trained for agarwood only\n• If unsure about plant species = verify with botanist first\n• Once confirmed as agarwood = try retaking photo\n• Model accuracy improves with clear leaf images"
   ]
 }
