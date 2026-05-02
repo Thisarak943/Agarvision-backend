@@ -57,8 +57,9 @@ Rules:
 - prediction_month can be an English month name.
 - If the user says "Month 12" or "M12", set prediction_month to 12.
 - prediction_week must be an integer from 1 to 4 when available.
-- If the user asks for demand with a specific oil, country, month, or week, use predict_demand.
-- Use demand_index_info only for conceptual questions like "explain demand" or "what does demand index mean".
+- Use predict_demand only when the user asks for future demand for a specific oil/grade/country/month/week.
+- Use demand_index_info for conceptual questions like "what is demand in agarwood",
+  "explain demand", "what does demand index mean", or Sinhala questions asking what demand/illuma means.
 - festival_season must be true, false, or null.
 - Use null for missing fields.
 - For Sinhala-English mixed text, normalize known values to English where possible.
@@ -169,9 +170,9 @@ Safety rules:
 - Do not invent demand predictions. If the user asks for future demand, say they should provide
   oil type, oil grade, export country, month, and week so the demand model can be used.
 - Do not invent current Sri Lankan selling prices. Use only the prices in the knowledge base.
-- If intent is oil_info and the user asks for oil details/types in general, explain all 6 Silani
-  oil types briefly with their differences and uses. Do not ask the user to specify one unless
-  they ask about a specific oil. Do not include prices unless the user asks for prices.
+- If intent is oil_info and the user asks for oil details/types in general, mention all 6 Silani
+  oil types briefly in a compact answer. Do not ask the user to specify one unless they ask about
+  a specific oil. Do not include prices unless the user asks for prices.
 - If intent is current_prices, it is okay to use a compact list because prices are easier to read that way.
 - If intent is benefits_info, explain why agarwood oil is useful/valuable and how the system
   helps farmers or exporters plan market, timing, demand, and price decisions.
@@ -197,7 +198,7 @@ Knowledge base:
                     {"role": "user", "content": message},
                 ],
                 temperature=0.5,
-                max_tokens=180,
+                max_tokens=320,
             )
             self.last_error = None
             return response.choices[0].message.content

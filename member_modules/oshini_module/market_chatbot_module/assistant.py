@@ -48,6 +48,12 @@ class MarketChatbotAssistant:
 
         intent = extraction.get("intent") or "unknown"
         language = extraction.get("language") or self._detect_language(message)
+        if fallback_extraction.get("intent") == "predict_demand" and not self._is_conceptual_demand_question(message):
+            intent = "predict_demand"
+            extraction["intent"] = intent
+        if intent == "predict_demand" and self._is_conceptual_demand_question(message):
+            intent = "demand_index_info"
+            extraction["intent"] = intent
 
         if intent == "reset":
             self.reset(session_id)
@@ -310,6 +316,8 @@ class MarketChatbotAssistant:
             return "predict_demand"
         if "demand" in text and any(word in text for word in ["explain", "meaning", "simple", "kiyanne", "mokakda"]):
             return "demand_index_info"
+        if "demand" in text and any(word in text for word in ["what is", "what does", "define", "definition"]):
+            return "demand_index_info"
         if any(word in text for word in ["current price", "current prices", "selling price", "dan price"]):
             return "current_prices"
         if any(word in text for word in ["competitor", "competition", "compete"]):
@@ -322,8 +330,10 @@ class MarketChatbotAssistant:
             return "reset"
         if any(word in text for word in ["help", "what can you do", "kohomada use", "use karanne"]):
             return "help"
-        if any(word in text for word in ["demand", "predict", "forecast"]):
+        if any(word in text for word in ["predict", "forecast"]):
             return "predict_demand"
+        if "demand" in text:
+            return "demand_index_info"
         if any(word in text for word in ["recommend price", "recommended price", "price recommendation"]):
             return "price_recommendation"
         if any(word in text for word in ["price", "mila", "ganan"]):
@@ -337,6 +347,29 @@ class MarketChatbotAssistant:
         if any(word in text for word in ["oil", "agarwood", "ravana", "savera", "cobra"]):
             return "oil_info"
         return "unknown"
+
+    def _is_conceptual_demand_question(self, message: str) -> bool:
+        text = message.lower()
+        conceptual_terms = [
+            "what is demand",
+            "what does demand",
+            "demand meaning",
+            "explain demand",
+            "demand kiyanne",
+            "demand කියන්නේ",
+            "ඉල්ලුම කියන්නේ",
+            "ඉල්ලුම මොකක්ද",
+        ]
+        if any(term in text for term in conceptual_terms):
+            return True
+        has_specific_prediction_target = (
+            any(alias.lower() in text or full_name.lower() in text for alias, full_name in OIL_TYPE_ALIASES.items())
+            or any(country.lower() in text for country in COUNTRY_TO_REGION)
+            or any(month_name in text for month_name in MONTH_NAME_TO_NUMBER)
+            or re.search(r"\b(?:month|m)\s*(1[0-2]|[1-9])\b", text) is not None
+            or re.search(r"(?:week|w)\s*([1-4])", text) is not None
+        )
+        return "demand" in text and not has_specific_prediction_target
 
     def _has_prediction_details(self, text: str) -> bool:
         has_oil = any(alias.lower() in text or full_name.lower() in text for alias, full_name in OIL_TYPE_ALIASES.items())
@@ -369,14 +402,19 @@ class MarketChatbotAssistant:
             "explain_prediction",
             "price_recommendation",
             "demand_index_info",
-            "predict_demand",
             "current_prices",
             "competitor_info",
             "benefits_info",
+            "oil_info",
+            "market_info",
+            "grade_info",
+            "festival_info",
             "thanks",
             "help",
             "greeting",
         }:
+            merged["intent"] = fallback_intent
+        if fallback_intent == "predict_demand" and merged.get("intent") in {None, "", "unknown"}:
             merged["intent"] = fallback_intent
         if fallback.get("language") in {"sinhala", "mixed"}:
             merged["language"] = fallback["language"]
