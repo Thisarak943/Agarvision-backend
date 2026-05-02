@@ -4,7 +4,7 @@ import tensorflow as tf
 from pathlib import Path
 from fastapi.responses import HTMLResponse
 from tensorflow.keras.applications.efficientnet import preprocess_input
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input as mobilenet_preprocess_input
+from tensorflow.keras.applications.convnext import preprocess_input as convnext_preprocess_input
 from PIL import Image
 import io
 
@@ -55,11 +55,11 @@ def preprocess_bytes_for_efficientnet(img_bytes: bytes):
     return tf.expand_dims(img, axis=0)
 
 
-def preprocess_bytes_for_mobilenet_v2(img_bytes: bytes):
+def preprocess_bytes_for_convnext(img_bytes: bytes):
     img = tf.io.decode_image(img_bytes, channels=3, expand_animations=False)
     img = tf.image.resize(img, IMG_SIZE)
     img = tf.cast(img, tf.float32)
-    img = mobilenet_preprocess_input(img)
+    img = convnext_preprocess_input(img)
     return tf.expand_dims(img, axis=0)
 
 
@@ -81,7 +81,7 @@ async def predict_image(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Empty file uploaded.")
 
     try:
-        validator_x = preprocess_bytes_for_mobilenet_v2(img_bytes)
+        validator_x = preprocess_bytes_for_convnext(img_bytes)
         grading_x = preprocess_bytes_for_efficientnet(img_bytes)
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid image format.")
