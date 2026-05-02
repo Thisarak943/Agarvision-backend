@@ -1,42 +1,48 @@
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from __future__ import annotations
 
-from .predictor import DemandPredictor, CURRENT_PRICES_LKR
+from fastapi import APIRouter, HTTPException
+
+from .constants import COUNTRIES_BY_REGION, CURRENT_OIL_PRICES_LKR, MONTH_NUMBER_TO_NAME, OIL_GRADES
+from .predictor import DemandPredictor
+from .schemas import DemandRequest, DemandResponse
 
 router = APIRouter(prefix="/oshini", tags=["Market Intelligence - Demand"])
 
 predictor = DemandPredictor()
 
 
-class DemandRequest(BaseModel):
-    oil_type: str
-    oil_grade: str
-    market_region: str
-    market_country: str
-    prediction_period: str   # "Next Week" | "Next Month" | "Next Quarter"
-    festival_season: bool
-
-
 @router.get("/health")
 def health():
-    return {"status": "ok", "module": "oshini_module"}
+    return {
+        "status": "ok",
+        "module": "oshini_module",
+        "service": "demand_prediction",
+        "model_loaded": predictor.model is not None,
+    }
 
 
-@router.post("/predict-demand")
+@router.get("/demand-options")
+def demand_options():
+    return {
+        "oil_types": list(CURRENT_OIL_PRICES_LKR.keys()),
+        "oil_grades": OIL_GRADES,
+        "markets": COUNTRIES_BY_REGION,
+        "months": [
+            {"value": month, "label": month_name}
+            for month, month_name in MONTH_NUMBER_TO_NAME.items()
+        ],
+        "weeks": [1, 2, 3, 4],
+        "festival_season": [False, True],
+    }
+
+
+@router.post("/predict-demand", response_model=DemandResponse)
 def predict_demand(req: DemandRequest):
-    # Basic validation (so frontend errors are clear)
-    if req.oil_type not in CURRENT_PRICES_LKR:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Invalid oil_type '{req.oil_type}'."
-        )
-
     try:
-        result = predictor.predict(req.model_dump())
-        return result
-    except ValueError as e:
-        # encoder / invalid category errors
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
-    
+        return predictor.predict(req.model_dump())
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=503, detail=str(error))
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {error}")
