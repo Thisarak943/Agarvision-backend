@@ -1,9 +1,0 @@
-{
-  "model_name": "SVM",
-  "train_accuracy": 0.98125,
-  "test_accuracy": 0.78125,
-  "cv_mean_accuracy": 0.7562500000000001,
-  "num_training_samples": 800,
-  "num_intents": 19,
-  "training_date": "2026-01-03 02:42:23"
-}
