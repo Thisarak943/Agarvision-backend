@@ -13,6 +13,7 @@ def info():
     return {
         "module": "Resin Induction Stage Classifier",
         "model": "EfficientNetB0 + MLP Early Fusion",
+        "validation": "Bark / Not Bark validator added before stage prediction",
         "inputs": [
             "file (image)",
             "tree_age",
@@ -28,7 +29,6 @@ def info():
 @router.post("/predict")
 async def predict(
     file: UploadFile = File(...),
-
     tree_age: float = Form(...),
     tree_diameter: float = Form(...),
     inoculation_count: int = Form(...),
@@ -37,7 +37,7 @@ async def predict(
 ):
     try:
         contents = await file.read()
-        image = Image.open(io.BytesIO(contents))
+        image = Image.open(io.BytesIO(contents)).convert("RGB")
 
         result = predict_stage(
             image=image,
@@ -48,7 +48,11 @@ async def predict(
             months_since_last=months_since_last,
         )
 
-        return JSONResponse(result)
+        status_code = 400 if "error" in result else 200
+        return JSONResponse(content=result, status_code=status_code)
 
     except Exception as e:
-        return JSONResponse({"error": str(e)}, status_code=500)
+        return JSONResponse(
+            content={"error": str(e)},
+            status_code=500
+        )
