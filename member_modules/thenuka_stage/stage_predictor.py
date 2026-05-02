@@ -4,7 +4,7 @@ import tensorflow as tf
 import joblib
 from PIL import Image
 
-# Paths
+# Paths--
 BASE_DIR = os.path.dirname(__file__)
 MODEL_PATH = os.path.join(BASE_DIR, "model", "agarwood_model.keras")
 ENCODER_PATH = os.path.join(BASE_DIR, "model", "label_encoder.pkl")
