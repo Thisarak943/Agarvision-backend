@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes import health
 from member_modules.thisara_disease.routes import router as thisara_router
 from member_modules.oshini_module.demand_module.routes import router as demand_router
-from member_modules.oshini_module.chatbot_module.chatbot_routes import router as chatbot_router
+from member_modules.oshini_module.market_chatbot_module.routes import router as market_chatbot_router
 
 
 
@@ -62,7 +62,7 @@ app.include_router(kavin_image_router, prefix="/kavin/image", tags=["Kavin Image
 app.include_router(kavin_numeric_router, prefix="/kavin/numeric", tags=["Kavin Numeric Model"])
 app.include_router(thenuka_stage_router, prefix="/thenuka/stage", tags=["Thenuka - Stage"])
 app.include_router(demand_router)
-app.include_router(chatbot_router)
+app.include_router(market_chatbot_router)
 
 @app.get("/demo/chatbot", response_class=HTMLResponse)
 def chatbot_demo(request: Request):

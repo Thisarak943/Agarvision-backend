@@ -299,11 +299,28 @@
         <label>Market Country</label>
         <select id="market_country"></select>
 
-        <label>Prediction Period</label>
-        <select id="prediction_period">
-          <option>Next Week</option>
-          <option selected>Next Month</option>
-          <option>Next Quarter</option>
+        <label>Prediction Month</label>
+        <select id="prediction_month">
+          <option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option selected>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>
+        </select>
+
+        <label>Prediction Week</label>
+        <select id="prediction_week">
+          <option>1</option>
+          <option selected>2</option>
+          <option>3</option>
+          <option>4</option>
         </select>
 
         <label>
@@ -317,13 +334,13 @@
         </div>
 
         <div class="chips">
-          <button class="chip" data-preset="cobra_uae_month">Cobra • UAE • Next Month</button>
-          <button class="chip" data-preset="ravana_saudi_quarter">Ravana • Saudi • Next Quarter</button>
-          <button class="chip" data-preset="peacock_japan_week">Peacock • Japan • Next Week</button>
+          <button class="chip" data-preset="cobra_uae_month">Cobra - UAE - June W2</button>
+          <button class="chip" data-preset="ravana_saudi_quarter">Ravana - Saudi - December W3</button>
+          <button class="chip" data-preset="peacock_japan_week">Peacock - Japan - January W1</button>
         </div>
 
         <div class="muted">
-          Tip: If you get “Invalid value for …”, it means the category is not in your LabelEncoder classes.
+          Tip: January to April roll into the next year when the current month is May or later.
         </div>
 
         <div class="alert" id="alertBox"></div>
@@ -377,10 +394,10 @@
 
   const countriesByRegion = {
     "Middle East": ["UAE", "Saudi Arabia"],
-    "East Asia": ["China", "Taiwan", "Japan"],
-    "Southeast Asia": ["Singapore", "Malaysia"],
+    "East Asia": ["China", "Taiwan", "Japan", "Hong Kong"],
+    "Southeast Asia": ["Malaysia", "Indonesia", "Vietnam", "Singapore"],
     "Europe": ["Spain", "Slovakia"],
-    "South Asia": ["India"],
+    "South Asia": ["India", "Pakistan"],
   };
 
   const el = (id) => document.getElementById(id);
@@ -409,7 +426,7 @@
 
   function setOutput(data){
     el("demandIndex").innerText = data?.demand_index ?? "—";
-    el("demandLevel").innerText = data?.demand_level ?? "—";
+    el("demandLevel").innerText = data?.demand_category ?? data?.demand_level ?? "—";
 
     const minP = data?.recommended_price_range?.min_price_lkr;
     const maxP = data?.recommended_price_range?.max_price_lkr;
@@ -419,7 +436,7 @@
 
     const whyList = el("whyList");
     whyList.innerHTML = "";
-    (data?.why || []).forEach(r => {
+    (data?.reasons || data?.why || []).forEach(r => {
       const li = document.createElement("li");
       li.textContent = r;
       whyList.appendChild(li);
@@ -464,7 +481,8 @@
       oil_grade: el("oil_grade").value,
       market_region: el("market_region").value,
       market_country: el("market_country").value,
-      prediction_period: el("prediction_period").value,
+      prediction_month: el("prediction_month").value,
+      prediction_week: Number(el("prediction_week").value),
       festival_season: el("festival_season").checked
     };
   }
@@ -494,7 +512,8 @@
     el("market_region").value = "Middle East";
     setCountriesForRegion("Middle East");
     el("market_country").value = "UAE";
-    el("prediction_period").value = "Next Month";
+    el("prediction_month").value = "May";
+    el("prediction_week").value = "2";
     el("festival_season").checked = false;
     showAlert("");
     setOutput({});
@@ -508,7 +527,8 @@
       el("market_region").value = "Middle East";
       setCountriesForRegion("Middle East");
       el("market_country").value = "UAE";
-      el("prediction_period").value = "Next Month";
+      el("prediction_month").value = "June";
+      el("prediction_week").value = "2";
       el("festival_season").checked = false;
     }
 
@@ -518,7 +538,8 @@
       el("market_region").value = "Middle East";
       setCountriesForRegion("Middle East");
       el("market_country").value = "Saudi Arabia";
-      el("prediction_period").value = "Next Quarter";
+      el("prediction_month").value = "December";
+      el("prediction_week").value = "3";
       el("festival_season").checked = true;
     }
 
@@ -528,7 +549,8 @@
       el("market_region").value = "East Asia";
       setCountriesForRegion("East Asia");
       el("market_country").value = "Japan";
-      el("prediction_period").value = "Next Week";
+      el("prediction_month").value = "January";
+      el("prediction_week").value = "1";
       el("festival_season").checked = false;
     }
   }
