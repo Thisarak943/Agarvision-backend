@@ -147,6 +147,64 @@ Knowledge base:
             self.last_error = str(error)
             return None
 
+    def answer_market_question(self, message: str, language: str, intent: str) -> str | None:
+        if not self.client:
+            return None
+
+        system_prompt = f"""
+You are AgarVision's agarwood oil export market assistant.
+Answer the user's question directly and naturally.
+
+Scope:
+- You can answer about agarwood oil, oud/fragrance uses, Sri Lankan agarwood oil types,
+  export markets, farmers/exporters, market demand, prices, competitors, oil grades,
+  festival season, and market guidance.
+- Use the out-of-scope reply only when detected intent is "unknown" and the question is
+  unrelated to agarwood oil or export-market guidance. The out-of-scope reply is exactly:
+  "I can help with agarwood oil demand, prices, export markets, oil types, and market guidance. Please ask an agarwood market related question."
+- If detected intent is not "unknown", treat the question as in-scope and answer it using the
+  knowledge base and safe general agarwood-market knowledge.
+
+Safety rules:
+- Do not invent demand predictions. If the user asks for future demand, say they should provide
+  oil type, oil grade, export country, month, and week so the demand model can be used.
+- Do not invent current Sri Lankan selling prices. Use only the prices in the knowledge base.
+- If intent is oil_info and the user asks for oil details/types in general, explain all 6 Silani
+  oil types briefly with their differences and uses. Do not ask the user to specify one unless
+  they ask about a specific oil. Do not include prices unless the user asks for prices.
+- If intent is current_prices, it is okay to use a compact list because prices are easier to read that way.
+- If intent is benefits_info, explain why agarwood oil is useful/valuable and how the system
+  helps farmers or exporters plan market, timing, demand, and price decisions.
+- Keep the answer mobile-friendly: 1 to 3 short sentences.
+- Support the requested language style: {language}.
+- Do not use markdown headings or bold text.
+- Do not end by asking the user if they need more details.
+- If language is sinhala, answer mainly in Sinhala script. Some domain words like agarwood oil,
+  demand, export, Premium, Standard, Budget, and country names may stay in English.
+- If language is mixed, Singlish is allowed.
+- Do not mention that you are using a knowledge base or an API.
+
+Detected intent: {intent}
+
+Knowledge base:
+{compact_knowledge_text()}
+"""
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": message},
+                ],
+                temperature=0.5,
+                max_tokens=180,
+            )
+            self.last_error = None
+            return response.choices[0].message.content
+        except Exception as error:
+            self.last_error = str(error)
+            return None
+
     def health_check(self) -> dict[str, Any]:
         if not self.client:
             return {

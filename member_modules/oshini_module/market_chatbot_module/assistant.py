@@ -195,20 +195,8 @@ class MarketChatbotAssistant:
             reply = self._greeting_reply(language)
         elif intent == "thanks":
             reply = self._thanks_reply(language)
-        elif intent == "unknown":
-            reply = self._out_of_scope_reply(language)
-        elif intent == "help":
-            reply = self._help_reply(language)
-        elif intent == "current_prices":
-            reply = self._current_prices_reply(language)
-        elif intent == "benefits_info":
-            reply = self._benefits_reply(language)
-        elif intent == "competitor_info":
-            reply = self._competitor_reply(language)
-        elif intent == "oil_info":
-            reply = self._oil_details_reply(language)
         else:
-            reply = self.llm.answer_knowledge(message, language) or self._fallback_knowledge_reply(intent, language)
+            reply = self.llm.answer_market_question(message, language, intent) or self._fallback_knowledge_reply(intent, language)
 
         return {
             "intent": intent,
@@ -311,6 +299,8 @@ class MarketChatbotAssistant:
         if any(word in text for word in ["මිල", "ගණන්", "විකුණුම් මිල"]):
             return "current_prices"
         if any(word in text for word in ["benefit", "benefits", "farmer", "farmers", "prayo", "why we use", "why use", "use this oil"]):
+            return "benefits_info"
+        if "agarwood oil" in text and any(word in text for word in ["valuable", "value", "use", "why", "important"]):
             return "benefits_info"
         if any(word in text for word in ["ඇයි", "උනේ", "වුනේ", "හේතුව", "හේතු"]):
             return "explain_prediction"
